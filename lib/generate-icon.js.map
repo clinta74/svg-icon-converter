@@ -1,0 +1,1 @@
+{"version":3,"file":"generate-icon.js","sourceRoot":"","sources":["../src/generate-icon.ts"],"names":[],"mappings":";;;;;AAAA,sDAAgC;AAGhC,IAAM,UAAU,GAAG,kGAIhB,CAAC;AAEJ,IAAM,QAAQ,GAAG,qBAAQ,CAAC,KAAK,CAAC,UAAU,CAAC,CAAC;AAE/B,QAAA,MAAM,GAAG,UAAC,IAAc;IACnC,IAAM,MAAM,GAAG,qBAAQ,CAAC,MAAM,CAAC,UAAU,EAAE,IAAI,CAAC,CAAC;IACjD,mCAAmC;IACnC,OAAO,MAAM,CAAC;AAChB,CAAC,CAAA"}
