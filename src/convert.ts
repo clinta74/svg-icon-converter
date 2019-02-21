@@ -58,7 +58,7 @@ export const convert = (options: ScanSourceFolder) => {
       srcStream.on('end', () => {
         const outputFilename = path.resolve(outputFolder, `index.js`);
         const libraryFile = generateLibraryFile(libraryData);
-        console.log(`Writing library file. ${outputFilename}`, libraryFile);
+        // console.log(`Writing library file. ${outputFilename}`, libraryFile);
         const outStream = fs.createWriteStream(outputFilename);
 
         outStream.on('error', console.error);
