@@ -2,10 +2,15 @@
   "name": "svg-to-js-icon-maker",
   "version": "1.0.0",
   "description": "Convert SVG to JavaScript modules for icons",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "preferGlobal": true,
+  "bin": {
+    "svg-convert": "lib/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx tsc --pretty"
+    "build": "npx tsc --pretty",
+    "clean:icons": "npx rimraf ./icons/**/*.js"
   },
   "keywords": [
     "svg",
@@ -20,6 +25,7 @@
     "@types/lodash": "^4.14.121",
     "@types/mustache": "^0.8.32",
     "@types/node": "^11.9.4",
+    "rimraf": "^2.6.3",
     "ts-node": "^8.0.2",
     "typescript": "^3.3.3"
   },
