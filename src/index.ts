@@ -5,7 +5,7 @@ import { convert } from './convert';
 import path from 'path';
 
 program
-  .version('1.0.0', '-v, --version')
+  .version('1.1.0', '-v, --version')
   .option('-s, --source-folder <sourceFolder>', 'Source folder of SVGs')
   .option('-o, --output-folder <outputFolder>', 'Output folder to save icons.')
   .option('-l, --library-name <libraryName>', 'Name of export const for library file.')

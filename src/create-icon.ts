@@ -12,7 +12,8 @@ export type IconData = {
 }
 
 export const createIcon = (svg: any, filename: string) => {
-  const viewbox = get(svg, 'viewbox', '0 0 10 10').split(' ');
+  const viewboxPath = svg.viewbox ? 'viewbox' : 'viewBox';
+  const viewbox = get(svg, viewboxPath, '0 0 10 10').split(' ');
   const height = svg['height'] || (Number(viewbox[3]) - Number(viewbox[1]));
   const width = svg['width'] || (Number(viewbox[2]) - Number(viewbox[0]));
   const paths = findPaths(svg);
