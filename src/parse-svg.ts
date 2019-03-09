@@ -15,16 +15,8 @@ export const parseSVG = (filename: string, outputFilename: string) => {
   const file = path.resolve(filename);
 
   fs.createReadStream(file)
-    .setMaxListeners(100)
+    .on('error', console.error)
     .pipe(xmlObjects({ explicitRoot: false, explicitArray: false, mergeAttrs: true, normalizeTags: true }))
     .pipe(createIconTransform(filename))
-    .pipe(generateIconFileTransform)
-      .on('data', (icon: string) => {
-        const outStream = fs.createWriteStream(outputFilename);
-
-        outStream.on('error', console.error);
-        outStream.write(icon);
-        outStream.end();
-      })
-    .on('error', console.error);
+    .pipe(generateIconFileTransform(outputFilename))
 }

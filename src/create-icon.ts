@@ -2,9 +2,7 @@ import path from 'path';
 import { get } from "lodash";
 import Case from 'case';
 import { Transform } from 'stream';
-
 import { findPaths } from './find-paths';
-import { Z_FULL_FLUSH } from 'zlib';
 
 export type IconData = {
   iconName: string,
@@ -35,7 +33,6 @@ export const createIconTransform = (filename: string) => new Transform({
 
   transform(chunk, encoding, callback) {
     this.push(createIcon(chunk, filename));
-    this.push(null);
     callback();
   }
 });

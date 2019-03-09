@@ -31,13 +31,14 @@ export const convert = (options: ScanSourceFolder) => {
 
   let libraryData: LibraryData = {
     libraryName: Case.pascal(libraryName),
-    iconNames: [],
+    icons: [],
   }
 
   const srcStream = getSourceFolderStream(options)
     .on('error', console.error)
     .on('data', (filename: string) => {
-      const outputFilename = path.resolve(outputFolder, `${path.parse(filename).name}.js`);
+      const baseFilename = Case.kebab(path.parse(filename).name);
+      const outputFilename = path.resolve(outputFolder, `${baseFilename}.ts`);
 
       fs.mkdir(outputFolder, { recursive: true }, (error) => {
         if (error) throw error;
@@ -48,13 +49,16 @@ export const convert = (options: ScanSourceFolder) => {
     if(libraryName) {
       libraryData.libraryName = libraryName;
 
-      srcStream.on('data', (filename: string) => {
-        const baseFilename = Case.pascal(path.parse(filename).name);
-        libraryData.iconNames.push(baseFilename);
+      srcStream.on('data', (fullFilename: string) => {
+        const baseFilename = Case.kebab(path.parse(fullFilename).name);
+        const filename = Case.kebab(baseFilename);
+        const name = Case.pascal(baseFilename);
+        
+        libraryData.icons.push({ name, filename });
       });
 
       srcStream.on('end', () => {
-        const outputFilename = path.resolve(outputFolder, `index.js`);
+        const outputFilename = path.resolve(outputFolder, `index.ts`);
         const libraryFile = generateLibraryFile(libraryData);
         const outStream = fs.createWriteStream(outputFilename);
 

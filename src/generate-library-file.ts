@@ -1,22 +1,26 @@
 import Mustache from 'mustache';
-import { IconData } from './create-icon';
 import { Transform } from 'stream';
 
+export type Icon = {
+    name: string,
+    filename: string,
+}
 export type LibraryData = {
   libraryName: string,
-  iconNames: string[],
+  icons: Icon[],
 }
 
 const TEMPATE = 
-`[[#iconNames]]
-import { [[.]] } from './[[.]]'
-[[/iconNames]]
+`[[#icons]]
+import { [[name]] } from './[[filename]]';
+[[/icons]]
 
 export const [[libraryName]] = {
-[[#iconNames]]
-  [[.]],
-[[/iconNames]]
-};`;
+[[#icons]]
+  [[name]],
+[[/icons]]
+};
+`;
 
 export const generateLibraryFile = (view: LibraryData) => {
   return Mustache.render(TEMPATE, view, undefined, ['[[', ']]']);
