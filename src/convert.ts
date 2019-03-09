@@ -4,7 +4,6 @@ import fs from 'fs';
 import Case from 'case';
 import { parseSVG } from './parse-svg';
 import { generateLibraryFile, LibraryData } from './generate-library-file';
-import { version } from 'punycode';
 
 type ScanSourceFolder = {
   sourceFolder: string,
@@ -36,9 +35,8 @@ export const convert = (options: ScanSourceFolder) => {
   }
 
   const srcStream = getSourceFolderStream(options)
-    .on('error', console.error);
-
-  srcStream.on('data', (filename: string) => {
+    .on('error', console.error)
+    .on('data', (filename: string) => {
       const outputFilename = path.resolve(outputFolder, `${path.parse(filename).name}.js`);
 
       fs.mkdir(outputFolder, { recursive: true }, (error) => {
@@ -51,19 +49,19 @@ export const convert = (options: ScanSourceFolder) => {
       libraryData.libraryName = libraryName;
 
       srcStream.on('data', (filename: string) => {
-        const baseFilename = path.parse(filename).name;
+        const baseFilename = Case.pascal(path.parse(filename).name);
         libraryData.iconNames.push(baseFilename);
       });
 
       srcStream.on('end', () => {
         const outputFilename = path.resolve(outputFolder, `index.js`);
         const libraryFile = generateLibraryFile(libraryData);
-        // console.log(`Writing library file. ${outputFilename}`, libraryFile);
         const outStream = fs.createWriteStream(outputFilename);
 
         outStream.on('error', console.error);
         outStream.write(libraryFile);
         outStream.end();
+        console.log(`Writing library file. ${outputFilename}`);
       })
     }
 

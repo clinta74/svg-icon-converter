@@ -2,8 +2,8 @@ import xmlObjects from 'xml-objects';
 import path from 'path';
 import fs from 'fs';
 
-import { createIconTransform, IconData } from './create-icon';
-import { generateIconFileTransform, generateIconFile } from './generate-icon-file';
+import { createIconTransform } from './create-icon';
+import { generateIconFileTransform } from './generate-icon-file';
 
 
 /**
@@ -15,6 +15,7 @@ export const parseSVG = (filename: string, outputFilename: string) => {
   const file = path.resolve(filename);
 
   fs.createReadStream(file)
+    .setMaxListeners(100)
     .pipe(xmlObjects({ explicitRoot: false, explicitArray: false, mergeAttrs: true, normalizeTags: true }))
     .pipe(createIconTransform(filename))
     .pipe(generateIconFileTransform)

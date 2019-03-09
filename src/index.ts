@@ -22,3 +22,5 @@ if(program.sourceFolder) {
     libraryName,
   });
 }
+
+export default convert;
