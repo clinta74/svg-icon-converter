@@ -15,7 +15,9 @@ const TEMPATE =
 import { [[name]] } from './[[filename]]';
 [[/icons]]
 
-export const [[libraryName]] = {
+import { IconLibrary } from 'react-svg-icon-host';
+
+export const [[libraryName]]: IconLibrary = {
 [[#icons]]
   [[name]],
 [[/icons]]

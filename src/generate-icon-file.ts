@@ -1,9 +1,10 @@
 import Mustache from 'mustache';
-import { IconData } from './create-icon';
+import { ConverterIconData } from './create-icon';
 import { Transform } from 'stream';
 import fs from 'fs';
 
-const TsTemplate = `export const {{iconName}} = {
+const TsTemplate = `import { IconData } from 'react-svg-icon-host';
+export const {{iconName}}: IconData = {
   height: {{ height }},
   width: {{ width }},
   paths: [
@@ -13,7 +14,7 @@ const TsTemplate = `export const {{iconName}} = {
   ]
 };`;
 
-export const generateIconFile = (view: IconData, outputFilename: string) => {
+export const generateIconFile = (view: ConverterIconData, outputFilename: string) => {
   console.log('Generate Icon: ', view.iconName);
   outputIconFile(Mustache.render(TsTemplate, view), outputFilename);
 }

@@ -4,7 +4,7 @@ import Case from 'case';
 import { Transform } from 'stream';
 import { findPaths } from './find-paths';
 
-export type IconData = {
+export type ConverterIconData = {
   iconName: string,
   height: number,
   width: number,
@@ -18,7 +18,7 @@ export const createIcon = (svg: any, filename: string) => {
   const width = svg['width'] || (Number(viewbox[2]) - Number(viewbox[0]));
   const paths = findPaths(svg);
   const baseFilename = path.parse(filename).name;
-  const icon: IconData = {
+  const icon: ConverterIconData = {
     iconName: Case.pascal(baseFilename),
     height,
     width,
